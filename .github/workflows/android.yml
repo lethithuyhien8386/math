@@ -28,6 +28,8 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+      - name: Validate XML/manifest and workflow before Gradle
+        run: python3 scripts/check-project.py
       - name: Static checks, unit tests, assemble APK
         run: gradle --no-daemon --stacktrace :app:lintDebug :app:testDebugUnitTest :app:assembleDebug
       - name: Verify APK metadata and cryptographic signature
