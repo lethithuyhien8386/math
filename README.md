@@ -11,6 +11,14 @@ Source project for a portrait arithmetic game with four colored answer buttons, 
 
 **SDK installation error fix:** The workflow does **not** execute `sdkmanager tools`. That obsolete SDK package no longer exists. It installs `platform-tools`, `platforms;android-35`, and `build-tools;35.0.0` only. Gradle 8.9 is installed by `gradle/actions/setup-gradle`; a Gradle Wrapper JAR is not required and is intentionally not included. If building locally, install JDK 17, Android SDK API 35, build tools 35.0.0, Gradle 8.9, then execute `gradle :app:assembleDebug` from project root.
 
+## Fix for AAPT resource linking error (`android:flags`)
+
+**Fixed in this ZIP:** `app/src/main/res/xml/accessibility_config.xml` now declares
+`android:accessibilityFlags="flagReportViewIds"` instead of the invalid
+`android:flags="flagReportViewIds"`. The invalid XML attribute caused
+`:app:processDebugResources FAILED` before Java compilation. The build workflow
+runs `python3 scripts/check-project.py` first to catch this regression.
+
 ## Device setup / operation
 
 1. Launch `Auto Math Solver`.
