@@ -19,6 +19,14 @@ Source project for a portrait arithmetic game with four colored answer buttons, 
 `:app:processDebugResources FAILED` before Java compilation. The build workflow
 runs `python3 scripts/check-project.py` first to catch this regression.
 
+## Fix for Java compilation error (`setTextAllCaps`)
+
+**Fixed:** `MainActivity.java` creates a platform `android.widget.Button`,
+which inherits `setAllCaps(boolean)` from `TextView`. It does not have
+`setTextAllCaps(boolean)` (the latter caused `:app:compileDebugJavaWithJavac FAILED`
+at line 92). Replaced the invalid call with `b.setAllCaps(false)`. The
+pre-build check now detects accidental reuse of the invalid method.
+
 ## Device setup / operation
 
 1. Launch `Auto Math Solver`.

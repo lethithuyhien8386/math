@@ -31,6 +31,10 @@ assert any(t.get(ANDROID + 'name') == '.MathAccessibilityService' and
            for t in service_tags), 'Accessibility service configuration missing from manifest'
 workflow_text = workflow.read_text(encoding='utf-8')
 assert 'sdkmanager tools' not in workflow_text, 'Obsolete Android SDK tools package requested'
+java_sources = list((ROOT / 'app/src/main/java').rglob('*.java'))
+assert java_sources, 'No Java source files found'
+assert not any('setTextAllCaps(' in p.read_text(encoding='utf-8') for p in java_sources), \
+    'Unsupported android.widget.Button#setTextAllCaps: use setAllCaps(false)'
 assert 'gradle --no-daemon' in workflow_text, 'Gradle build is missing'
 assert 'scripts/emulator-smoke.sh' in workflow_text, 'Emulator launch smoke test missing'
-print('PASS: Accessibility XML attributes, manifest, build and emulator workflow checked.')
+print('PASS: Android XML, manifest, unsupported Button API, build and emulator workflow checked.')

@@ -89,7 +89,7 @@ public final class MainActivity extends Activity {
         View v=new View(this); root.addView(v,new LinearLayout.LayoutParams(1,dp(height)));
     }
     private void addButton(LinearLayout root,String text,Runnable click,int bg) {
-        Button b=new Button(this); b.setText(text); b.setTextAllCaps(false); b.setTextColor(Color.WHITE);
+        Button b=new Button(this); b.setText(text); b.setAllCaps(false); b.setTextColor(Color.WHITE);
         GradientDrawable drawable=new GradientDrawable();
         drawable.setColor(bg); drawable.setCornerRadius(dp(13)); b.setBackground(drawable);
         LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,dp(54)); p.topMargin=dp(6);
